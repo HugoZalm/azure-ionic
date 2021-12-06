@@ -36,7 +36,14 @@ export class ImageComponent implements OnInit, OnChanges {
       if (changes.hasOwnProperty(propName)) {
         switch (propName) {
           case 'img':
-            this.image.src = 'data:image/' + changes.img.currentValue.format + ';base64,' + changes.img.currentValue.base64String;
+            const base64 = (
+              changes.img.currentValue.base64String !== undefined
+              && changes.img.currentValue.base64String !== null
+              && changes.img.currentValue.base64String !== ''
+              ) ? true : false;
+            this.image.src = (base64)
+              ? 'data:image/' + changes.img.currentValue.format + ';base64,' + changes.img.currentValue.base64String
+              : changes.img.currentValue.dataUrl;
             this.image.onload = () => {
               setTimeout(() => {
                 this.loadImage();

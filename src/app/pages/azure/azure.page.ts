@@ -24,10 +24,11 @@ export class AzurePage {
     this.rawImage = await Camera.getPhoto({
       quality: 100,
       allowEditing: true,
-      resultType: CameraResultType.Base64,
+      resultType: CameraResultType.DataUrl, //  .Base64,
       source: CameraSource.Camera
     });
     console.log('image: ', this.rawImage);
+    this.img = this.rawImage;
     this.azure.ocr(this.rawImage).subscribe((response) => {
       console.log('Response: ', response);
       const lines = [];
@@ -42,7 +43,6 @@ export class AzurePage {
       });
       this.ocrResults = lines;
     });
-    this.img = this.rawImage;
   }
 
 }
