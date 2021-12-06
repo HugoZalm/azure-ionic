@@ -43,7 +43,8 @@ export class ImageComponent implements OnInit, OnChanges {
               ) ? true : false;
             this.image.src = (base64)
               ? 'data:image/' + changes.img.currentValue.format + ';base64,' + changes.img.currentValue.base64String
-              : changes.img.currentValue.webPath;
+              : changes.img.currentValue.dataUri;
+              // : changes.img.currentValue.webPath;
             this.image.onload = () => {
               setTimeout(() => {
                 this.loadImage();

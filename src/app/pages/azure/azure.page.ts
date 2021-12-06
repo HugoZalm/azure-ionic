@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Camera, CameraResultType, CameraSource, Photo } from '@capacitor/camera';
+import { Camera, CameraResultType, CameraSource, Photo, ImageOptions } from '@capacitor/camera';
 
 import { AzureService } from 'src/app/services/azure.service';
 
@@ -24,7 +24,9 @@ export class AzurePage {
     this.rawImage = await Camera.getPhoto({
       quality: 100,
       allowEditing: true,
-      resultType: CameraResultType.Uri, // DataUrl, //  .Base64,
+      // resultType: CameraResultType.Uri,
+      // resultType: CameraResultType.DataUrl,
+      resultType: CameraResultType.Base64,
       source: CameraSource.Camera
     });
     console.log('image: ', this.rawImage);
