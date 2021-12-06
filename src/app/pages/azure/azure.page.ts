@@ -24,7 +24,7 @@ export class AzurePage {
     this.rawImage = await Camera.getPhoto({
       quality: 100,
       allowEditing: true,
-      resultType: CameraResultType.DataUrl, //  .Base64,
+      resultType: CameraResultType.Uri, // DataUrl, //  .Base64,
       source: CameraSource.Camera
     });
     console.log('image: ', this.rawImage);
