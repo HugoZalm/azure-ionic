@@ -1,0 +1,22 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      {{title}}
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="getImage()">
+        <ion-icon name="camera"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+</ion-toolbar>
+</ion-header>
+
+
+<ion-progress-bar type="determinate" [value]="loaderValue"></ion-progress-bar>
+
+<app-image [img]="img" [obj]="obj"></app-image>
+
+<div *ngFor="let result of ocrResults">
+  <div class="result">{{result}}</div>
+</div>
+

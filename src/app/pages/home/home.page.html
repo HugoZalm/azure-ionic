@@ -1,0 +1,79 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      {{title}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">{{title}}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-grid *ngIf="workerReady && showImages">
+    <ion-row>
+      <ion-col size="4">
+        <ion-img [src]="'assets/images/buttons/close.png'" (click)="closeImages()"></ion-img>
+      </ion-col>
+      <ion-col size="4" *ngFor="let image of images; index as i">
+        <ion-img [src]="image" (click)="setImage(image)"></ion-img>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-progress-bar type="determinate" [value]="loaderValue"></ion-progress-bar>
+
+  <ion-card>
+    <ion-card-header *ngIf="!workerReady">
+      <ion-card-title>
+        Loading ...
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content *ngIf="workerReady">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="6">
+            <ion-img [src]="'assets/images/buttons/camera.png'" (click)="captureImage()"></ion-img>
+          </ion-col>
+          <ion-col size="6">
+            <ion-img [src]="'assets/images/buttons/pictures.png'" (click)="selectImage()"></ion-img>
+          </ion-col>
+        </ion-row>
+            <ion-row *ngIf="image !== ''">
+          <ion-col size="6">
+            <ion-img [src]="image"></ion-img>
+            <!-- <img src="{{image}}" id="original-image" /> -->
+          </ion-col>
+          <ion-col size="6">
+            <ion-button (click)="processImage(image)">Pre-Process</ion-button>
+            <ion-button (click)="recognizeImageAzure(image)">Recognize (Azure)</ion-button>
+            <ion-button (click)="recognizeImageJS(image)">Recognize (JS)</ion-button>
+          </ion-col>
+        </ion-row>
+        <ion-row *ngIf="processedImage !== ''">
+          <ion-col size="6">
+            <ion-img [src]="processedImage"></ion-img>
+            <!-- <canvas id="filtered-image"></canvas> -->
+          </ion-col>
+          <ion-col size="6">
+            <ion-button (click)="recognizeImageAzure(processedImage)">Recognize (Azure)</ion-button>
+            <ion-button (click)="recognizeImageJS(processedImage)">Recognize (JS)</ion-button>
+          </ion-col>
+        </ion-row>
+        <ion-progress-bar type="determinate" [value]="loaderValue"></ion-progress-bar>
+        <ion-row *ngIf="ocrResults.length > 0">
+          <ion-col size="12" class="result" *ngFor="let ocrResult of ocrResults">
+            {{ ocrResult }}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <img src="{{image}}" id="original-image" />
+  <canvas id="filtered-image"></canvas>
+
+</ion-content>
